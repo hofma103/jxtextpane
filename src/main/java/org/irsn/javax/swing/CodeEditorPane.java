@@ -464,17 +464,18 @@ public class CodeEditorPane extends LineNumbersTextPane {
 
 				public void menuKeyTyped(MenuKeyEvent e) {
 					MenuElement[] path = MenuSelectionManager.defaultManager().getSelectedPath();
-					if (path[1] instanceof KeyWordItem) {
-						KeyWordItem item = (KeyWordItem) path[1];
-						int code = e.getKeyChar();
-						if (code == KeyEvent.VK_ENTER && item.name.equals(name)) {
-							getAction().actionPerformed(null);
-						}
-					} else if (path[1] instanceof JMenuItem) {
-						JMenuItem item = (JMenuItem) path[1];
-						int code = e.getKeyChar();
-						if (code == KeyEvent.VK_ENTER && item.getText().equals("...")) {
-							item.getAction().actionPerformed(null);
+					int code = e.getKeyChar();
+					if (code == KeyEvent.VK_ENTER) {
+						if (path[1] instanceof KeyWordItem) {
+							KeyWordItem item = (KeyWordItem) path[1];
+							if (item.name.equals(name)) {
+								getAction().actionPerformed(null);
+							}
+						} else if (path[1] instanceof JMenuItem) {
+							JMenuItem item = (JMenuItem) path[1];
+							if (item.getText().equals("...")) {
+								item.getAction().actionPerformed(null);
+							}
 						}
 					}
 				}

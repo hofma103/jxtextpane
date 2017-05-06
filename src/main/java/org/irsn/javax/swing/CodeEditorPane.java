@@ -260,48 +260,6 @@ public class CodeEditorPane extends LineNumbersTextPane {
 					int sel = completionMenu.getComponentIndex(selected);
 					MenuSelectionManager.defaultManager().setSelectedPath(((KeyWordItem) completionMenu
 							.getComponent((sel + 1) % completionMenu.getComponentCount())).path);
-				} else {
-					/*
-					 * if (completionMenu.isVisible() &&
-					 * Character.isLetterOrDigit(e.getKeyChar())) {
-					 * System.err.println("" + e.getKeyChar());
-					 * LinkedList<KeyWordItem> toremove = new
-					 * LinkedList<KeyWordItem>(); for (KeyWordItem keyWordItem :
-					 * visible_completion_keywords) { if
-					 * (!keyWordItem.name.startsWith("" + e.getKeyChar(),
-					 * keyWordItem.alreadywriten - 1)) {
-					 * toremove.add(keyWordItem); } }
-					 * System.err.println("To remove:"); for (KeyWordItem
-					 * keyWordItem : toremove) {
-					 * System.err.println(keyWordItem.name);
-					 * visible_completion_keywords.remove(keyWordItem);
-					 * completionMenu.remove(keyWordItem);
-					 * completionMenu.updateUI(); } }
-					 */
-					if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-						if (isEditable()) {
-							try {
-								if (getCaretPosition() > 0)
-									getDocument().remove(getCaretPosition() - 1, 1);
-							} catch (BadLocationException ex) {
-								ex.printStackTrace();
-							}
-						}
-						keyAdapter.keyPressed(e);// TODO rebuild all
-													// completionMenu, which may
-													// be optimized...
-					} else if (Character.isLetterOrDigit(e.getKeyCode())) {
-						if (isEditable()) {
-							try {
-								getDocument().insertString(getCaretPosition(), "" + e.getKeyChar(), null);
-							} catch (BadLocationException ex) {
-								ex.printStackTrace();
-							}
-						}
-						keyAdapter.keyPressed(e);// TODO rebuild all
-													// completionMenu, which may
-													// be optimized...
-					}
 				}
 			}
 		});
@@ -477,6 +435,29 @@ public class CodeEditorPane extends LineNumbersTextPane {
 								item.getAction().actionPerformed(null);
 							}
 						}
+					} else if (code == KeyEvent.VK_BACK_SPACE) {
+						if (isEditable()) {
+							try {
+								if (getCaretPosition() > 0)
+									getDocument().remove(getCaretPosition() - 1, 1);
+							} catch (BadLocationException ex) {
+								ex.printStackTrace();
+							}
+						}
+						keyAdapter.keyPressed(e);// TODO rebuild all
+													// completionMenu, which may
+													// be optimized...
+					} else if (Character.isLetterOrDigit(code)) {
+						if (isEditable()) {
+							try {
+								getDocument().insertString(getCaretPosition(), "" + e.getKeyChar(), null);
+							} catch (BadLocationException ex) {
+								ex.printStackTrace();
+							}
+						}
+						keyAdapter.keyPressed(e);// TODO rebuild all
+													// completionMenu, which may
+													// be optimized...
 					}
 				}
 

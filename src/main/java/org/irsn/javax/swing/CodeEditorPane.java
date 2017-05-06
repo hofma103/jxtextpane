@@ -504,6 +504,10 @@ public class CodeEditorPane extends LineNumbersTextPane {
 		protected void createHelpMenu(String name, Map<String, String> dictionnary) {
 			if (dictionnary != null && name != null && dictionnary.containsKey(name)) {
 				if (dictionnary.get(name) != null && dictionnary.get(name).length() > 0) {
+					for (int i = 0; i < this.getItemCount(); i++) {
+						if (this.getItem(i).getText().equals(dictionnary.get(name)))
+							return;
+					}
 					add(buildHelpMenu(dictionnary.get(name)));
 				}
 			}

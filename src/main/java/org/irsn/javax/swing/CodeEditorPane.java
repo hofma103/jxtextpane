@@ -43,6 +43,8 @@ import javax.swing.text.View;
  * @author richet
  */
 public class CodeEditorPane extends LineNumbersTextPane {
+	
+	private final CodeEditorPane INSTANCE = this;
 
 	/** Here is a way to handle regexp on keywords. */
 	public static class RegExpKeywordMap extends HashMap {
@@ -362,6 +364,7 @@ public class CodeEditorPane extends LineNumbersTextPane {
 						}
 					} else {
 						completionMenu.setVisible(false);
+						INSTANCE.requestFocusInWindow();
 					}
 				}
 			}

@@ -43,7 +43,7 @@ import javax.swing.text.View;
  * @author richet
  */
 public class CodeEditorPane extends LineNumbersTextPane {
-	
+
 	private final CodeEditorPane INSTANCE = this;
 
 	/** Here is a way to handle regexp on keywords. */
@@ -466,10 +466,18 @@ public class CodeEditorPane extends LineNumbersTextPane {
 
 				public void menuKeyTyped(MenuKeyEvent e) {
 					MenuElement[] path = MenuSelectionManager.defaultManager().getSelectedPath();
-					KeyWordItem item = (KeyWordItem) path[1];
-					int code = e.getKeyChar();
-					if (code == KeyEvent.VK_ENTER && item.name.equals(name)) {
-						getAction().actionPerformed(null);
+					if (path[1] instanceof KeyWordItem) {
+						KeyWordItem item = (KeyWordItem) path[1];
+						int code = e.getKeyChar();
+						if (code == KeyEvent.VK_ENTER && item.name.equals(name)) {
+							getAction().actionPerformed(null);
+						}
+					} else if (path[1] instanceof JMenuItem) {
+						JMenuItem item = (JMenuItem) path[1];
+						int code = e.getKeyChar();
+						if (code == KeyEvent.VK_ENTER && item.getText().equals("...")) {
+							item.getAction().actionPerformed(null);
+						}
 					}
 				}
 

@@ -281,7 +281,8 @@ public class CodeEditorPane extends LineNumbersTextPane {
 					if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 						if (isEditable()) {
 							try {
-								getDocument().remove(getCaretPosition() - 1, 1);
+								if (getCaretPosition() > 0)
+									getDocument().remove(getCaretPosition() - 1, 1);
 							} catch (BadLocationException ex) {
 								ex.printStackTrace();
 							}

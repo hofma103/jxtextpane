@@ -139,7 +139,7 @@ public class LineNumbersTextPane extends JXTextPane {
 			e.printStackTrace();
 		}
 		int div = (int) (width
-				* (Math.floor(Math.log10(((LineWrapEditorKit) getEditorKit()).number_of_lines + 1)) + 3));
+				* (Math.floor(Math.log10(((LineWrapEditorKit) getEditorKit()).number_of_lines)) + 3));
 		jSplitPane1.setDividerLocation(div);
 	}
 

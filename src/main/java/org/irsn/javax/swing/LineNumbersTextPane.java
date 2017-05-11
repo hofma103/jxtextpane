@@ -19,7 +19,6 @@ import javax.swing.JSplitPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.EditorKit;
-import javax.swing.text.JTextComponent;
 
 /**
  * Component integrating scrollpane and left-side line numbers. Appears like a
@@ -131,15 +130,9 @@ public class LineNumbersTextPane extends JXTextPane {
 			return;
 		}
 		int width = linenumbers._editor.getFontMetrics(linenumbers._editor.getFont()).charWidth('0');
-		try {
-			Document doc = this.getDocument();
-			((LineWrapEditorKit) getEditorKit()).number_of_lines = doc.getText(0, doc.getLength())
-					.split(System.getProperty("line.separator"), -1).length;
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}
-		int div = (int) (width
-				* (Math.floor(Math.log10(((LineWrapEditorKit) getEditorKit()).number_of_lines)) + 3));
+		((LineWrapEditorKit) getEditorKit()).number_of_lines = linenumbers._editor.getText().split("(\r\n|\r|\n)",
+				-1).length;
+		int div = (int) (width * (Math.floor(Math.log10(((LineWrapEditorKit) getEditorKit()).number_of_lines)) + 3));
 		jSplitPane1.setDividerLocation(div);
 	}
 
